@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 import json
-
+from rest_framework.response import Response
 from .serializers import infoSerializers,questionSerializers
 from .models import info,question
 
@@ -16,7 +16,7 @@ def welcome(request):
     content = {"message": "Welcome to Survey!"}   #startup page
     return JsonResponse(content)
 
-@api_view(["GET"])                 # To view all users
+@api_view(["GET","POST"])                 # To view all users
 def get_info(request):
     if request.method == 'GET':
 
@@ -26,7 +26,7 @@ def get_info(request):
         
  #To add users
     elif request.method == 'POST':  
-        
+      
 
         serializer = infoSerializers(data=request.data)
         if serializer.is_valid():
